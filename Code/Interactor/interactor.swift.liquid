@@ -8,14 +8,14 @@
 
 import Foundation
 
-final class {{ module_info.name }}Interactor: NSObject {
+final class {{ prefix }}{{ module_info.name }}Interactor: NSObject {
     
-    weak var output: {{ module_info.name }}InteractorOutput?
+    weak var output: {{ prefix }}{{ module_info.name }}InteractorOutput?
     
 }
 
 
 // MARK: - Interactor Input
-extension {{ module_info.name }}Interactor: {{ module_info.name }}InteractorInput {
+extension {{ prefix }}{{ module_info.name }}Interactor: {{ prefix }}{{ module_info.name }}InteractorInput {
     
 }

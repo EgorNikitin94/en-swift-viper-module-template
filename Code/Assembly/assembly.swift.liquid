@@ -8,27 +8,27 @@
 
 import Foundation
 
-final class {{ module_info.name }}Assembly: NSObject {
+final class {{ prefix }}{{ module_info.name }}Assembly: NSObject {
 
-    private var view : {{ module_info.name }}ViewController
-    private var presenter : {{ module_info.name }}Presenter
-    private var interactor : {{ module_info.name }}Interactor
-    private var router : {{ module_info.name }}Router
+    private var view : {{ prefix }}{{ module_info.name }}ViewController
+    private var presenter : {{ prefix }}{{ module_info.name }}Presenter
+    private var interactor : {{ prefix }}{{ module_info.name }}Interactor
+    private var router : {{ prefix }}{{ module_info.name }}Router
 
     // MARK: - Initializer
     override init() {
-        view = {{ module_info.name }}ViewController(nibName: "{{ module_info.name }}ViewController", bundle: Bundle.main)
-        presenter = {{ module_info.name }}Presenter()
+        view = {{ prefix }}{{ module_info.name }}ViewController(nibName: "{{ prefix }}{{ module_info.name }}ViewController", bundle: Bundle.main)
+        presenter = {{ prefix }}{{ module_info.name }}Presenter()
 
-        router = {{ module_info.name }}Router()
-        interactor = {{ module_info.name }}Interactor()
+        router = {{ prefix }}{{ module_info.name }}Router()
+        interactor = {{ prefix }}{{ module_info.name }}Interactor()
         super.init()
     }
 
     // MARK: - Public method
-    @objc func assembleModule(moduleOutput: {{ module_info.name }}ModuleOutput,
-                              transition: (({{ module_info.name }}RouterInput) -> Void)?,
-                              completion: (({{ module_info.name }}ModuleInput) -> Void)?) {
+    @objc func assembleModule(moduleOutput: {{ prefix }}{{ module_info.name }}ModuleOutput,
+                              transition: (({{ prefix }}{{ module_info.name }}RouterInput) -> Void)?,
+                              completion: (({{ prefix }}{{ module_info.name }}ModuleInput) -> Void)?) {
         
         configureDependenciesWithModuleOutput(moduleOutput: moduleOutput)
         
@@ -51,7 +51,7 @@ final class {{ module_info.name }}Assembly: NSObject {
     }
     
     // MARK: - Configure dependencies
-    private func configureDependenciesWithModuleOutput(moduleOutput: {{ module_info.name }}ModuleOutput) {
+    private func configureDependenciesWithModuleOutput(moduleOutput: {{ prefix }}{{ module_info.name }}ModuleOutput) {
         presenter.view = view
         view.output = presenter
         
