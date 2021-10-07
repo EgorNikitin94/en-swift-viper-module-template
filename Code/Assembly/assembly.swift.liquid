@@ -1,0 +1,67 @@
+//
+//  {{ prefix }}{{ module_info.name }}{{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import Foundation
+
+final class {{ module_info.name }}Assembly: NSObject {
+
+    private var view : {{ module_info.name }}ViewController
+    private var presenter : {{ module_info.name }}Presenter
+    private var interactor : {{ module_info.name }}Interactor
+    private var router : {{ module_info.name }}Router
+
+    // MARK: - Initializer
+    override init() {
+        view = {{ module_info.name }}ViewController(nibName: "{{ module_info.name }}ViewController", bundle: Bundle.main)
+        presenter = {{ module_info.name }}Presenter()
+
+        router = {{ module_info.name }}Router()
+        interactor = {{ module_info.name }}Interactor()
+        super.init()
+    }
+
+    // MARK: - Public method
+    @objc func assembleModule(moduleOutput: {{ module_info.name }}ModuleOutput,
+                              transition: (({{ module_info.name }}RouterInput) -> Void)?,
+                              completion: (({{ module_info.name }}ModuleInput) -> Void)?) {
+        
+        configureDependenciesWithModuleOutput(moduleOutput: moduleOutput)
+        
+        view.setupViewReadyBlock {
+            self.addChildComponents()
+            if let completion = completion {
+                completion(self.presenter)
+            }
+        }
+        
+        if let transition = transition {
+            transition(router)
+        }
+        
+    }
+    
+    // MARK: - Child components
+    private func addChildComponents() {
+        // Present child submodules here
+    }
+    
+    // MARK: - Configure dependencies
+    private func configureDependenciesWithModuleOutput(moduleOutput: {{ module_info.name }}ModuleOutput) {
+        presenter.view = view
+        view.output = presenter
+        
+        presenter.router = router
+        router.view = view
+        
+        presenter.interactor = interactor
+        interactor.output = presenter
+        
+        presenter.moduleOutput = moduleOutput
+    }
+
+}
